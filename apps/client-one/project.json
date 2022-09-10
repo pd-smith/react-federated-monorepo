@@ -1,0 +1,101 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client-one/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/client-one",
+        "index": "apps/client-one/src/index.html",
+        "baseHref": "/",
+        "main": "apps/client-one/src/main.ts",
+        "polyfills": "apps/client-one/src/polyfills.ts",
+        "tsConfig": "apps/client-one/tsconfig.app.json",
+        "assets": [
+          "apps/client-one/src/favicon.ico",
+          "apps/client-one/src/assets"
+        ],
+        "styles": ["apps/client-one/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/client-one/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/client-one/src/environments/environment.ts",
+              "with": "apps/client-one/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/client-one/webpack.config.prod.js"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "client-one:build",
+        "hmr": true,
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "client-one:build:development"
+        },
+        "production": {
+          "buildTarget": "client-one:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/client-one/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/client-one"],
+      "options": {
+        "jestConfig": "apps/client-one/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "client-one:build",
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "client-one:build:development"
+        },
+        "production": {
+          "buildTarget": "client-one:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
