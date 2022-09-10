@@ -1,5 +1,31 @@
 
+# react-federated-monorepo
 
+Testing to see if monorepos for module federation can solve the multirepo module federation issues:
+
+* tooling for quick spin up (heavily supported at that)
+* shared package.json for easy synchronus updates
+* ability to easily share types across shells / clients
+* nx graph
+
+Things we need to prove out:
+
+* shared context (this can be done, I just haven't done it yet)
+* individual client package.json's 
+* deployment via external tools (toolshed. IYKYK)
+
+to run
+
+install
+
+`npm i`
+
+run
+
+`npm run start`
+
+
+_________
 # ReactMf
 
 This project was generated using [Nx](https://nx.dev).
